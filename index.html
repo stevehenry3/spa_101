@@ -83,6 +83,37 @@
                             </li>
                         </ul>
                     </section>
+
+                    <section id="framework_summary">
+                        <table>
+                            <tr>
+                                <td style="vertical-align: middle">Package Managers</td>
+                                <td><img src="images/logos/npm_logo.png" style="width: 235px; height: 105px"/></td>
+                                <td><img src="images/logos/bower_logo.jpeg" style="width: 225px; height: 105px"/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle">MVVM, Routing, Binding, DI</td>
+                                <td><img src="images/logos/angular_logo.png"/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle">Styling</td>
+                                <td><img src="images/logos/sass_logo.jpeg" style="width: 110px; height: 115px"/>
+                                    <img src="images/logos/css3_logo.jpeg" style="width: 110px; height: 115px"/></td>
+                                <td><img src="images/logos/bootstrap_logo.jpeg" style="width: 110px; height: 115px"/>
+                                    <img src="images/logos/html5_logo.png" style="width: 110px; height: 115px"/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle">Tasks/Dev Ops</td>
+                                <td><img src="images/logos/gulp_logo.jpeg"/></td>
+                                <td><img src="images/logos/node_logo.png" style="width: 220px; height: 95px"/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle">Testing</td>
+                                <td><img src="images/logos/karma_logo.jpeg" /></td>
+                                <td><img src="images/logos/jasmine_logo.png" /></td>
+                            </tr>
+                        </table>
+                    </section>
                 </section>
 
                 <section id="web_basics_root">
@@ -644,53 +675,53 @@ mainApp.config(function($routeProvider){
                             <li>Common <i>dependencies</i> and <i>devDependencies</i></li>
                         </ul>
                         <pre><code data-trim contenteditable>
-                            {
-                            "name": "SPA-Angular-Web",
-                            "version": "1.0.0",
-                            "description": "VS University: Single Page Apps, Angular, Web Ecosystem",
-                            "homepage": "",
-                            "subdomain": "",
-                            "main": "js/reveal.js",
-                            "scripts": {
-                            "test": "grunt test",
-                            "start": ""
-                            },
-                            "author": {
-                            "name": "Steve Henry",
-                            "email": "steven.henry@tdsecurities.com",
-                            "web": ""
-                            },
-                            "repository": {
-                            "type": "git",
-                            "url": ""
-                            },
-                            "engines": {
-                            "node": "~0.10.0"
-                            },
-                            "dependencies": {
-                            "underscore": "~1.5.1",
-                            "express": "~2.5.9",
-                            "mustache": "~0.7.2",
-                            "socket.io": "~0.9.16"
-                            },
-                            "devDependencies": {
-                            "grunt-contrib-qunit": "~0.5.2",
-                            "grunt-contrib-jshint": "~0.6.4",
-                            "grunt-contrib-cssmin": "~0.4.1",
-                            "grunt-contrib-uglify": "~0.2.4",
-                            "grunt-contrib-watch": "~0.5.3",
-                            "grunt-sass": "~0.14.0",
-                            "grunt-contrib-connect": "~0.8.0",
-                            "grunt-autoprefixer": "~1.0.1",
-                            "grunt-zip": "~0.7.0",
-                            "grunt": "~0.4.0",
-                            "node-sass": "~0.9.3"
-                            },
-                            "licenses": [ {
-                            "type": "MIT",
-                            "url": ""
-                            } ]
-                            }
+{
+    "name": "SPA-Angular-Web",
+    "version": "1.0.0",
+    "description": "VS University: Single Page Apps, Angular, Web Ecosystem",
+    "homepage": "",
+    "subdomain": "",
+    "main": "js/reveal.js",
+    "scripts": {
+    "test": "grunt test",
+    "start": ""
+    },
+    "author": {
+        "name": "Steve Henry",
+        "email": "steven.henry@tdsecurities.com",
+        "web": ""
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "engines": {
+        "node": "~0.10.0"
+    },
+    "dependencies": {
+        "underscore": "~1.5.1",
+        "express": "~2.5.9",
+        "mustache": "~0.7.2",
+        "socket.io": "~0.9.16"
+    },
+    "devDependencies": {
+        "grunt-contrib-qunit": "~0.5.2",
+        "grunt-contrib-jshint": "~0.6.4",
+        "grunt-contrib-cssmin": "~0.4.1",
+        "grunt-contrib-uglify": "~0.2.4",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-sass": "~0.14.0",
+        "grunt-contrib-connect": "~0.8.0",
+        "grunt-autoprefixer": "~1.0.1",
+        "grunt-zip": "~0.7.0",
+        "grunt": "~0.4.0",
+        "node-sass": "~0.9.3"
+    },
+    "licenses": [ {
+        "type": "MIT",
+        "url": ""
+    } ]
+}
                         </code></pre>
                     </section>
 
@@ -717,46 +748,46 @@ mainApp.config(function($routeProvider){
                             <li>Common <i>dependencies</i> and <i>devDependencies</i></li>
                         </ul>
                         <pre><code data-trim contenteditable>
-                            {
-                            "name": "transparency-etrader",
-                            "version": "0.0.1",
-                            "_comment": "",
-                            "devDependencies": {
-                            "angular-resource": "1.2.15",
-                            "angular-mocks": "1.2.15",
-                            "angular-sanitize": "1.2.15",
-                            },
-                            "dependencies": {
-                            "angular": "1.2.15",
-                            "bootstrap": "3.1.1",
-                            "angular-ui-router": "0.2.10",
-                            "angular-upload": "~1.0.11"
-                            "jquery": "1.8.2",
-                            "jqgrid": "4.6.0",
-                            "ng-file-upload": "1.5.1",
-                            "moment": "2.6.0",
-                            "datatables": "1.10.0",
-                            "components-font-awesome": "4.1.0"
-                            },
-                            "authors": [
-                            "Steve Henry &lt;steven.henry@tdsecurities.com&gt;"
-                            ],
-                            "description": "User-facing eTrading web application",
-                            "main": "src/app/app.js",
-                            "license": "None",
-                            "private": true,
-                            "ignore": [
-                            "**/.*",
-                            "node_modules",
-                            "bower_components",
-                            "vendor",
-                            "test",
-                            "tests"
-                            ],
-                            "resolutions": {
-                            "jquery": "1.8.2"
-                            }
-                            }
+{
+    "name": "transparency-etrader",
+    "version": "0.0.1",
+    "_comment": "",
+    "devDependencies": {
+        "angular-resource": "1.2.15",
+        "angular-mocks": "1.2.15",
+        "angular-sanitize": "1.2.15",
+    },
+    "dependencies": {
+        "angular": "1.2.15",
+        "bootstrap": "3.1.1",
+        "angular-ui-router": "0.2.10",
+        "angular-upload": "~1.0.11"
+        "jquery": "1.8.2",
+        "jqgrid": "4.6.0",
+        "ng-file-upload": "1.5.1",
+        "moment": "2.6.0",
+        "datatables": "1.10.0",
+        "components-font-awesome": "4.1.0"
+    },
+    "authors": [
+        "Steve Henry &lt;steven.henry@tdsecurities.com&gt;"
+    ],
+    "description": "User-facing eTrading web application",
+    "main": "src/app/app.js",
+    "license": "None",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "vendor",
+        "test",
+        "tests"
+    ],
+    "resolutions": {
+        "jquery": "1.8.2"
+    }
+}
                         </code></pre>
                     </section>
 
@@ -870,10 +901,10 @@ mainApp.config(function($routeProvider){
                         </ul>
                         <p>Syntax:</p>
                         <pre><code data-trim contenteditable>
-                            gulp.task('taskName', ['taskDependency1', 'taskDependency2'], function() {
-                            // task implemention
-                            // use 'src', 'pipe', 'dest'
-                            });
+gulp.task('taskName', ['taskDependency1', 'taskDependency2'], function() {
+    // task implemention
+    // use 'src', 'pipe', 'dest'
+});
                         </code></pre>
                         <!--<img src="images/logos/gulp_logo.jpeg"/>-->
                     </section>
@@ -882,48 +913,48 @@ mainApp.config(function($routeProvider){
                         <h2>gulpfile.js & gulp.config.js</h2>
                         <div style="width: 1200px">
                         <pre style="float: left; width: 540px; margin-left: -175px"><code data-trim contenteditable>
-                            module.exports = function() {
-                            var client = './src/client';
-                            var clientAssets = client + 'assets/';
-                            var server = './src/node-server/';
-                            var temp = './.tmp/';
-                            // Import using RequireJS
-                            var wiredep = require('wiredep');
+module.exports = function() {
+    var client = './src/client';
+    var clientAssets = client + 'assets/';
+    var server = './src/node-server/';
+    var temp = './.tmp/';
+    // Import using RequireJS
+    var wiredep = require('wiredep');
 
-                            var config = {
-                            alljs: [
-                            './src/**/*.js',
-                            './*.js'
-                            ],
-                            scss: clientAssets + 'scss/**/*.scss',
-                            css: temp + '**/*.css',
-                            build: './build/',
-                            optimized: {
-                            app: 'app.js',
-                            lib: 'lib.js'
-                            }
-                            };
-                            };
+    var config = {
+        alljs: [
+            './src/**/*.js',
+            './*.js'
+        ],
+        scss: clientAssets + 'scss/**/*.scss',
+        css: temp + '**/*.css',
+        build: './build/',
+        optimized: {
+            app: 'app.js',
+            lib: 'lib.js'
+        }
+    };
+};
                         </code></pre>
                         <pre style="float:right; width: 700px"><code data-trim contenteditable>
-                            var gulp = require('gulp');
-                            var config = require('./gulp.config')();
-                            var $ = require('gulp-load-plugins')( {lazy: true} );
+var gulp = require('gulp');
+var config = require('./gulp.config')();
+var $ = require('gulp-load-plugins')( {lazy: true} );
 
-                            gulp.task('build', ['wiredep', 'images', 'fonts', function() {
-                            log('Building everything...');
-                            });
+gulp.task('build', ['wiredep', 'images', 'fonts', function() {
+    log('Building everything...');
+});
 
-                            gulp.task('wiredep', ['styles', 'templateCache'], function() {
-                            var options = config.getWiredepDefaultOptions();
-                            var wiredep = require('wiredep').stream;
+gulp.task('wiredep', ['styles', 'templateCache'], function() {
+var options = config.getWiredepDefaultOptions();
+var wiredep = require('wiredep').stream;
 
-                            return gulp
-                            .src( config.index )
-                            .pipe( wiredep(options) )
-                            .pipe( $.inject( gulp.src(config.css) ) )
-                            .pipe( gulp.dest( config.client ) );
-                            });
+return gulp
+    .src( config.index )
+    .pipe( wiredep(options) )
+    .pipe( $.inject( gulp.src(config.css) ) )
+    .pipe( gulp.dest( config.client ) );
+});
                         </code></pre>
                         </div>
                     </section>
@@ -1056,13 +1087,13 @@ describe('permissionService: ', function() {
                                     <li>Isolated Scopes</li>
                                 </ul>
                             </li>
-                            <li><strong>Debugging</strong>
-                                <ul>
-                                    <li>Chrome Dev Tools</li>
-                                    <li>Angular Batarang</li>
-                                    <li>plnkr.co</li>
-                                </ul>
-                            </li>
+                            <!--<li><strong>Debugging</strong>-->
+                                <!--<ul>-->
+                                    <!--<li>Chrome Dev Tools</li>-->
+                                    <!--<li>Angular Batarang</li>-->
+                                    <!--<li>plnkr.co</li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
                         </ul>
                     </section>
 
@@ -1776,7 +1807,7 @@ function checkForUnderWriterEditability(renewalDate) {
                     <section id="directives_example_desc">
                         <h2>Directives - Rate Summary Example [1]</h2>
                         <img src="images/directives_rs_breakdown_description.png" />
-                        <p>
+                        <small>
                             <ul>
                                 <li>Selected Option</li>
                                 <li>Rate Summary Header</li>
@@ -1792,7 +1823,7 @@ function checkForUnderWriterEditability(renewalDate) {
                                     </ul>
                                 </li>
                             </ul>
-                        </p>
+                        </small>
                     </section>
 
                     <section id="directives_example_name">
@@ -1870,12 +1901,13 @@ function checkForUnderWriterEditability(renewalDate) {
                                 <li>Option Header, Option Total Header, Plans</li>
                             </ul>
                         </div>
-                        <div class="row">&nbsp</div>
-                        <div class="row">
-                            <p>NOTE: Directives declared (in .js) as camelcase,</p>
-                            <p>but written in HTML as snake-case (with hyphens).</p>
-                            <ul><li>js: recalculateRates() -> html: recalculate-rates()</li></ul>
-                        </div>
+                        <small>
+                            <div class="row">
+                                <p>NOTE: Directives declared (in .js) as camelcase,</p>
+                                <p>but written in HTML as snake-case (with hyphens).</p>
+                                <ul><li>js: recalculateRates() -> html: recalculate-rates()</li></ul>
+                            </div>
+                        </small>
                     </section>
 
                     <section id="directives_option_ctrl">
