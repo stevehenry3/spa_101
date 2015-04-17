@@ -1,0 +1,2115 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="script" href="bower_components/bootstrap/dist/js/bootstrap.min.js" >
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="css/pres.css">   <!-- for adding custom css -->
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section id="title">
+					<h1>Single Page Apps & Angular Best Practices</h1>
+                    <div class="row">&nbsp</div>
+					<h3>VSU 101</h3>
+                    <div class="row">&nbsp</div>
+					<small>
+						<p>Created by Steve Henry</p>
+						<p>2015 APR 17</p>
+						<p>Rev 0</p>
+					</small>
+				</section>
+
+                <section id="topics">
+                    <section id="spa_topics">
+                        <h2>SPA Topics</h2>
+                        <ul>
+                            <li><strong>SPA Web Ecosystem</strong>
+                                <ul>
+                                    <li>HTML5, JavaScript, REST</li>
+                                    <li>CSS Styling</li>
+                                    <li>SPA vs. Traditional Web Apps</li>
+                                    <li>Angular Introduction</li>
+                                    <li>Package Managers</li>
+                                    <li>Task Runners</li>
+                                    <li>Test Frameworks</li>
+                                </ul>
+                            </li>
+                            <p>&nbsp</p>
+                            <li><strong>Angular Deep Dive</strong>
+                                <ul>
+                                    <li>Architecture & Best Practices</li>
+                                    <li>SPA Framework Comparison</li>
+                                    <li>Angular 2.0</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section id="web_basics_root">
+                    <section id="dom">
+                        <h2>DOM: Document Object Model</h2>
+                        <p>Cross-platform, language-independent convention for HTML.</p>
+                        <p>Creates <i>DOM tree</i> of elements (nodes):</p>
+                        <img src="images/dom_tree.png" style="border: none"/>
+                        <p>Parsing and Rendering flow:</p>
+                        <img src="images/dom_flow.png" style="width: 900px; height: 105px; border: none" />
+                        <p>Modifying DOM => re-flow (layout), re-paint (draw)</p>
+                    </section>
+
+                    <section id="dom_manipulation">
+                        <h2>jQuery & Manipulating the DOM</h2>
+                        <p><b>jQuery</b>: JavaScript library for manipulating DOM, event handling, AJAX...</p>
+                        <pre><code data-trim contenteditable>
+<html>
+<div id="title">Bubble-based Enthusiasts</div>
+<p id="content">This article describes the inverse ratio of bubble-productivity to monkey-separation</p>
+</html>
+                        </code></pre>
+                        <p>&nbsp</p>
+                        <p>Example: Change text in an element using DOM manipulation</p>
+                        <pre><code data-trim contenteditable>
+document.getElementById("title").innerHTML = "The Bubble Thesis";
+                        </code></pre>
+                        <p>Example: Change text in an element using jQuery</p>
+                        <pre><code data-trim contenteditable>
+$("#title").html("The Bubble Theorem");
+                        </code></pre>
+                    </section>
+
+                    <section id="html5">
+                        <h2>HTML5</h2>
+                        <p>Provides additional feature set:</p>
+                        <ul>
+                            <li>&lt;canvas&gt;: 2D drawing</li>
+                            <li>&lt;video&gt;: timed video playback</li>
+                            <li>Semantic tags: &lt;aside&gt;, &lt;article&gt;, &lt;header&gt;, &lt;footer&gt;</li>
+                            <li>Form controls: <i>email, url, number, dates and times</i></li>
+                            <li>Web storage: key-value local storage (larger capacity than cookies)</li>
+                            <li>Drag'n'drop</li>
+                            <li>Geolocation: standard location API</li>
+                            <li>Offline web applications</li>
+                            <li>SVG (scalable vector graphics)</li>
+                            <ul>
+                                <small><li>XML-based, scalable/zoomable (no loss), animate, image search</li></small>
+                                <small><li>Define <i>paths, shapes, text, painting, clipping/masking...</i></li></small>
+                            </ul>
+                        </ul>
+                    </section>
+
+                    <section id="javascript">
+                        <h2>JavaScript</h2>
+                        <ul>
+                            <li>Dynamic client-side programming language</li>
+                            <li>Functional language (functions are first-class citizens)</li>
+                            <li>Prototypical inheritance</li>
+                        </ul>
+                        <p>&nbsp</p>
+                        <p>History:</p>
+                        <ul>
+                            <li>Created by Brendan Eich of Netscape, called <i>Mocha</i></li>
+                            <li>Renamed later to <i>LiveScript</i></li>
+                            <li>Renamed again to <i>JavaScript</i> (Dec 1995)</li>
+                            <li>Netscape 2.0 released with JavaScript support (Mar 1996)</li>
+                            <li>Microsoft creates compatible dialect <i>JScript</i> for IE 3.0 (Aug 1996)</li>
+                            <li>Netscape hands over JavaScript to 'ECMA International' to standardize: <i>ECMAScript</i></li>
+                            <li>Current version: 5 - ECMAScript 6 release in 2015</li>
+                        </ul>
+                    </section>
+
+                    <section id="rest">
+                        <h2>RESTful Web Services</h2>
+                        <p>Representational State Transfer is a set of principles:</p>
+                        <ul>
+                            <li>URI resource identification</li>
+                            <li>Uniform interface: GET, POST, PUT, DELETE</li>
+                            <li>Self-describing messages: add metadata, decouple representation</li>
+                            <li>Stateful interaction via hyperlinks</li>
+                            <ul>
+                                <li>Stateless interaction with resources</li>
+                                <li>Request messages are self-contained</li>
+                                <li>State exchange via URI params, cookies, hidden form fields...</li>
+                            </ul>
+                        </ul>
+                    </section>
+
+                    <section id="http_status_code">
+                        <h2>HTTP Response Status Codes</h2>
+                        <p><b><i><u>ALL</u></i></b> REST API responses should deliver proper status code, so client knows how to handle</p>
+                        <small>
+                        <ul>
+                            <li>200: OK</li>
+                            <li>400: Bad Request</li>
+                            <li>401: Unauthorized</li>
+                            <li>403: Forbidden</li>
+                            <li>404: Not Found</li>
+                            <li>410: Gone</li>
+                            <li>418: I'm a teapot (returned by teapots requested to brew coffee)</li>
+                            <li>500: Internal Server Error</li>
+                            <li>502: Bad Gateway</li>
+                            <li>504: Gateway Timeout</li>
+                        </ul>
+                        </small>
+                        <pre><code data-trim contenteditable>
+var tradeRes = $resource('api/trade/:id');
+
+function getTrade(tradeId) {
+    tradeRes.get( {id: tradeId} ).$promise.then(function(result) {
+        console.log("Received trade! " + result);
+    }, function(error) {
+        console.log("Trade failed! Redirecting to home page...");
+    });
+}
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section id="styling_root">
+                    <section id="styling">
+                        <h2>Cascading Style Sheets (CSS)</h2>
+                        <ul>
+                            <li>Separates <document></document> content (HTML) & presentation (CSS)</li>
+
+                        </ul>
+                        <p>Without CSS (BAD)</p>
+                        <pre><code data-trim contenteditable>
+<html>
+<p style="color: red">I'm not styled correctly</p>
+<button style="width: 50px; height: 20px; margin: 5px;"
+        onmouseover="this.style.backgroundColor='#006db9'"
+        onmouseout="this.style.backgroundColor=''">My Bad Button Styling</button>
+</html>
+                        </code></pre>
+                        <p>With CSS (GOOD)</p>
+                        <pre><code data-trim contenteditable>
+<html>
+<p class="main-paragraph">I'm styled correctly!</p>
+<button class="primary-button">My Proper Button Styling</button>
+</html>
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+.main-paragraph {
+    color: red;
+}
+.primary-button {
+    width: 50px;
+    height: 20px;
+    margin: 5px;
+}
+.primary-button:hover {
+    backgroundColor: #006db9;
+}
+                        </code></pre>
+                    </section>
+
+                    <section id="sass_less">
+                        <h2>SASS, SCSS, LESS</h2>
+                        <p>Scripting languages that interpret into CSS.</p>
+                        <ul>
+                            <li>SASS: Syntactically awesome style sheets</li>
+                            <li>SCSS: Sassy CSS (aka. SASS v3)</li>
+                            <li>LESS</li>
+                            <li>Features: Variables, Nesting, Mixins, Inheritance</li>
+                        </ul>
+                        <div>
+                            <img src="images/logos/sass_logo.jpeg" />
+                            <img src="images/logos/less_logo.jpeg" style="width: 225px; height: 100px" />
+                        </div>
+                    </section>
+
+                    <section id="sass_vars">
+                        <h2>SASS Variables - Example</h2>
+                        <p>&nbsp</p>
+                        <p>Use variables to identify key values in a single declaration.</p>
+                        <p>&nbsp</p>
+                        <pre><code data-trim contenteditable>
+$primary-font: Helvetica, sans-serif;
+$primary-color: green;
+
+.button-primary {
+    color: $primary-color;
+    font: $primary-font;
+}
+                        </code></pre>
+                    </section>
+
+                    <section id="sass_nesting">
+                        <h2>SASS Nesting - Example</h2>
+                        <p>&nbsp</p>
+                        <p>Use Nesting to group cascaded styles, for easier viewing.</p>
+                        <p>&nbsp</p>
+                        <pre><code data-trim contenteditable>
+// Without nesting
+nav a {
+    padding: 6px 12px;
+}
+nav li {
+    color: $primary-color;
+}
+
+// With nesting
+nav {
+    a {
+        padding: 6px 12px;
+    }
+    li {
+        color: $primary-color;
+    }
+}
+                        </code></pre>
+                    </section>
+
+                    <section id="sass_mixins">
+                        <h2>SASS Mixins & Inheritance - Example</h2>
+                        <p>Use Mixins to re-use blocks of CSS declarations.</p>
+                        <pre><code data-trim contenteditable>
+@mixin colored-button($radius, $bkgColor) {
+    border-radius: $radius;
+    font: Helvetica;
+    color: $primary-color;
+    backgroundColor: $bkgColor;
+    padding: 5px;
+    margin: 2px;
+    :hover {
+        backgroundColor: lighten($bkgColor, 50%);
+    }
+}
+
+// Use the mixin when defining new styles
+.button-secondary {
+    @include( colored-button(1px, blue) );
+}
+                        </code></pre>
+                        <pre class="fragment"><code data-trim contenteditable>
+// Inherit and extend another CSS class
+.button-secondary-small {
+    @extend .button-secondary;
+    font-size: 50%;
+}
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section id="spa_root">
+                    <section id="traditional_lifecycle">
+                        <h2>Traditional Web Apps - Lifecycle</h2>
+                        <ul><li>Every request makes a round trip to & compiled on server</li></ul>
+                        <img src="images/traditional_lifecycle.png" />
+                    </section>
+
+                    <section id="spa_lifecycle">
+                        <h2>Single Page Apps (SPA) - Lifecycle</h2>
+                        <ul>
+                            <li>All JavaScript downloaded on first request</li>
+                            <li>All routing and page-compiling down client-side</li>
+                        </ul>
+                        <img src="images/spa_lifecycle.png" />
+                    </section>
+
+                </section>
+
+                <section id="angular_intro_root">
+
+                    <section id="what_is_angular">
+                        <h2>What is Angular.js</h2>
+                        <div>
+                            <img src="images/AngularJS-large.png" style="border:none; box-shadow:none;" />
+                        </div>
+                        <ul>
+                            <li>Single Page App (SPA) Framework</li>
+                            <li>Client-side Routing</li>
+                            <li>Data Binding</li>
+                            <li>MVVM Framework</li>
+                            <li>Dependency Injection</li>
+                            <li>HTTP/REST Library</li>
+                            <li>Animations</li>
+                        </ul>
+                    </section>
+
+                    <section id="first_angular_page">
+                        <h2>The Most Basic Angular Page</h2>
+                        <p>&nbsp</p>
+                        <p>Declare an <i>ng-app</i> attribute in the <i>body</i> tag</p>
+                        <pre><code data-trim contenteditable>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Angular Example&lt;/title&gt;
+&lt;/head&gt;
+    &lt;body ng-app="mainApp"&gt;
+        &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+                                </code></pre>
+                    </section>
+
+                    <section id="expressions">
+                        <h2>Expressions</h2>
+                        <p>&nbsp</p>
+                        <p>Anything inside <i>{{expression}}</i> will be evaluated</p>
+                        <pre><code data-trim contenteditable>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Expression Example&lt;/title&gt;
+&lt;/head&gt;
+    &lt;body ng-app="mainApp"&gt;
+        {{ 1+2 }}
+        &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+                                </code></pre>
+                    </section>
+
+                    <section id="data_binding">
+                        <h2>Data Binding</h2>
+                        <p>&nbsp</p>
+                        <p>Angular will attempt to evaluate data bindings inside <i>{{variable}}</i>.</p>
+                        <ul>
+                            <li>Can place on <i>scope</i> inside Controller: $scope.name</li>
+                            <li>Bind field to variable: <i>ng-model="name"</i></li>
+                        </ul>
+                        <pre><code data-trim contenteditable>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Data Binding Example&lt;/title&gt;
+    &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+    &lt;body ng-app="mainApp"&gt;
+        &lt;input ng-model=&quot;name&quot; /&gt;
+        &lt;p&gt;
+            Hello: {{name}}
+        &lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                                </code></pre>
+                    </section>
+
+                    <section id="controllers">
+                        <h2>Controllers</h2>
+                        <p>Controllers are actually 'ViewModels' that:
+                            <ul>
+                                <li>Expose variables via: <i>$scope.varName</i></li>
+                                <li>Depend on and call Services (business logic layer)</li>
+                            </ul>
+                        </p>
+                        <pre><code data-trim contenteditable>
+&lt;body ng-app="mainApp"&gt;
+    &lt;div ng-controller=&quot;homeCtrl&quot;&gt;
+        &lt;input ng-model=&quot;bestBossEver.name&quot; /&gt;
+        &lt;p&gt;
+            Hello: {{bestBossEver.name}}
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;homeCtrl.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                            </code></pre>
+                        <pre><code data-trim contenteditable>
+// homeCtrl.js
+mainApp.controller('homeCtrl', function($scope) {
+    $scope.bestBossEver = {
+        name: 'Dan Bosman',
+        awards: [ 'Pinnacle', 'Top 1%', 'Like, 6 others' ],
+        longestSneeze: 250
+    };
+};
+                            </code></pre>
+                    </section>
+
+                    <section id="filters">
+                        <h2>Filters</h2>
+                        <p>Apply filter to expression: <i>{{ expression | filterName }}</i></p>
+                        <p>Built-in filters: currency, date, json, limitTo, lowerCase, number, uppercase</p>
+                        <pre><code data-trim contenteditable>
+<div ng-controller="homeCtrl">
+    <!-- Built-in Filter -->
+    <p>Hello: {{bestBossEver.name | uppercase}}</p>
+    <!-- Custom Filter -->
+    <p>Longest Sneeze: {{bestBossEver.longestSneeze | time}}</p>
+</div>
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+// timeFilter.js
+mainApp.filter('time', function() {
+    return function(timeMs) {
+        if (timeMs === undefined || timeMs < 0) {
+            return "";
+        }
+        if (timeInt < 1000) {
+            return timeInt + "ms";
+        }
+        return (timeInt / 1000) + "sec";
+    };
+}
+                        </code></pre>
+                    </section>
+
+                    <section id="ng_repeat">
+                        <h2>ng-Repeat</h2>
+                        <p>Iterate over items using:
+                            <ul>
+                                <li><i>ng-repeat="item in varName.arrayName"</i></li>
+                            </ul>
+                        </p>
+                        <pre><code data-trim contenteditable>
+<div ng-controller="homeCtrl">
+    <p>Best boss ({{bestBossEver.name}})'s awards:
+        <ul>
+            <li ng-repeat="award in bestBossEver.awards"> {{ award }} </li>
+        </ul>
+    </p>
+</div>
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+// homeCtrl.js
+mainApp.controller('homeCtrl', function($scope) {
+    $scope.bestBossEver = {
+        name: 'Dan Bosman',
+        awards: [ 'Pinnacle', 'Top 1%', 'Like, 6 others' ],
+        longestSneeze: 250
+    };
+};
+                        </code></pre>
+                    </section>
+
+                    <section id="filter_ordering_ngrepeat">
+                        <h2>Filtering & Ordering ng-Repeat</h2>
+                        <p>
+                            Syntax: <i>ng-repeat="item in varName.Items | filter: filterName | orderBy: 'varName.fieldName'"</i>
+                        </p>
+                        <pre><code data-trim contenteditable>
+&lt;table&gt;
+    &lt;tr&gt; ng-repeat="env in environments | filter: liveEnvironments | orderBy: 'env.name'">
+        &lt;td&gt;{{ env.name }}&lt;/td&gt;
+        &lt;td&gt;{{ env.upTime }}&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+// envCtrl.js
+mainApp.controller('envCtrl', function($scope) {
+    $scope.environments = [
+        { name: 'PROD', upTime: 1.00, isLive: true },
+        { name: 'PAT', upTime: 0.88, isLive: true },
+        { name: 'SIT', upTime: 0.60, isLive: false },
+        { name: 'DEV', upTime: 0.20, isLive: true }
+    ];
+};
+                        </code></pre>
+                    </section>
+
+                    <section id="routing">
+                        <h2>Client-side Routing</h2>
+                        <p>All Angular-routing starts with '#' character</p>
+                        <p>
+                            <ul><li>http://valservices.com/#/pageName</li></ul>
+                        </p>
+                        <p>The page routed to will populate the <i>ng-view</i> tag</p>
+                        <pre><code data-trim contenteditable>
+&lt;!-- index.html --&gt;
+&lt;body ng-app=&quot;mainApp&quot;&gt;
+    &lt;script src=&quot;angular-route.js&quot;&gt;&lt;/script&gt;
+    &lt;div ng-view /&gt;
+&lt;/body&gt;
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+// app.js -- import 'ngRoute' module for Routing
+var mainApp = angular.module('mainApp', ['ngRoute']);
+
+mainApp.config(function($routeProvider){
+    $routeProvider.when('/home',{
+        controller: 'homeCtrl',
+        templateUrl: 'home.tpl.html'
+    })
+    .otherwise({redirectTo: '/'});
+});
+                        </code></pre>
+                    </section>
+
+                    <section id="route_navigation">
+                        <h2>Navigation</h2>
+                        <p>To navigate/link to a page, set the <i>href="#/pageName"</i></p>
+                        <pre><code data-trim contenteditable>
+// app.js -- import 'ngRoute' module for Routing
+var mainApp = angular.module('mainApp', ['ngRoute']);
+
+mainApp.config(function($routeProvider){
+    $routeProvider.when('/home',{
+        controller: 'homeCtrl',
+        templateUrl: 'home.tpl.html'
+    })
+    .otherwise({redirectTo: '/'});
+});
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+<html>
+<!-- links.tpl.html -->
+<h2>Links</h2>
+<a href="#/home">Home</a>
+</html>
+                        </code></pre>
+                    </section>
+
+                    <section id="route_params">
+                        <h2>Route Params</h2>
+                        <pre><code data-trim contenteditable>
+// app.js
+mainApp.config(function($routeProvider){
+    $routeProvider.when('/',{
+      controller: 'homeCtrl',
+      templateUrl: 'home.tpl.html'
+    }).when('/profile/:id',{
+      controller: 'profileCtrl',
+      templateUrl: 'profile.tpl.html'
+    })
+    .otherwise({redirectTo: '/'});
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+// profileCtrl.js
+    mainApp.controller('profileCtrl', function ($scope, $routeParams) {
+    $scope.userId = $routeParams.id;
+});
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+<html>
+<!-- profile.tpl.html -->
+<p>The current user ID is: {{userId}}</p>
+</html>
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section id="package_managers_root">
+                    <section id="package_managers">
+                        <h2>Package Managers</h2>
+                        <div class="row">&nbsp</div>
+                        <ul>
+                            <li>Node Package Manager (NPM)</li>
+                            <li>Bower</li>
+                        </ul>
+                        <div class="row">&nbsp</div>
+                        <div class="row">
+                            <img src="images/logos/npm_logo.png" />
+                            <img src="images/logos/bower_logo.jpeg" />
+                        </div>
+                    </section>
+
+                    <section id="npm_package_json">
+                        <h2>Node Package Manager (NPM)</h2>
+                        <ul>
+                            <li>For <i>server side</i> dependencies for front-end dev</li>
+                            <li>Define dependencies in <i>package.json</i></li>
+                            <li>Common <i>dependencies</i> and <i>devDependencies</i></li>
+                        </ul>
+                        <pre><code data-trim contenteditable>
+                            {
+                            "name": "SPA-Angular-Web",
+                            "version": "1.0.0",
+                            "description": "VS University: Single Page Apps, Angular, Web Ecosystem",
+                            "homepage": "",
+                            "subdomain": "",
+                            "main": "js/reveal.js",
+                            "scripts": {
+                            "test": "grunt test",
+                            "start": ""
+                            },
+                            "author": {
+                            "name": "Steve Henry",
+                            "email": "steven.henry@tdsecurities.com",
+                            "web": ""
+                            },
+                            "repository": {
+                            "type": "git",
+                            "url": ""
+                            },
+                            "engines": {
+                            "node": "~0.10.0"
+                            },
+                            "dependencies": {
+                            "underscore": "~1.5.1",
+                            "express": "~2.5.9",
+                            "mustache": "~0.7.2",
+                            "socket.io": "~0.9.16"
+                            },
+                            "devDependencies": {
+                            "grunt-contrib-qunit": "~0.5.2",
+                            "grunt-contrib-jshint": "~0.6.4",
+                            "grunt-contrib-cssmin": "~0.4.1",
+                            "grunt-contrib-uglify": "~0.2.4",
+                            "grunt-contrib-watch": "~0.5.3",
+                            "grunt-sass": "~0.14.0",
+                            "grunt-contrib-connect": "~0.8.0",
+                            "grunt-autoprefixer": "~1.0.1",
+                            "grunt-zip": "~0.7.0",
+                            "grunt": "~0.4.0",
+                            "node-sass": "~0.9.3"
+                            },
+                            "licenses": [ {
+                            "type": "MIT",
+                            "url": ""
+                            } ]
+                            }
+                        </code></pre>
+                    </section>
+
+                    <section id="npm_commands">
+                        <h2>NPM Commands</h2>
+                        <p style="text-align: left;">npm install</p>
+                        <ul>
+                            <li>install all packages from <i>package.json</i></li>
+                        </ul>
+                        <p>&nbsp</p>
+                        <p style="text-align: left;">npm install [-g] <i>package_name</i> [--save-dev]</p>
+                        <ul>
+                            <li>install specific package</li>
+                            <li>[-g]: install package globally</li>
+                            <li>[--save-dev]: install package & save to <i>packages.json</i></li>
+                        </ul>
+                    </section>
+
+                    <section id="bower_json">
+                        <h2>Bower</h2>
+                        <ul>
+                            <li>For <i>client side</i> dependencies</li>
+                            <li>Define in <i>bower.json</i></li>
+                            <li>Common <i>dependencies</i> and <i>devDependencies</i></li>
+                        </ul>
+                        <pre><code data-trim contenteditable>
+                            {
+                            "name": "transparency-etrader",
+                            "version": "0.0.1",
+                            "_comment": "",
+                            "devDependencies": {
+                            "angular-resource": "1.2.15",
+                            "angular-mocks": "1.2.15",
+                            "angular-sanitize": "1.2.15",
+                            },
+                            "dependencies": {
+                            "angular": "1.2.15",
+                            "bootstrap": "3.1.1",
+                            "angular-ui-router": "0.2.10",
+                            "angular-upload": "~1.0.11"
+                            "jquery": "1.8.2",
+                            "jqgrid": "4.6.0",
+                            "ng-file-upload": "1.5.1",
+                            "moment": "2.6.0",
+                            "datatables": "1.10.0",
+                            "components-font-awesome": "4.1.0"
+                            },
+                            "authors": [
+                            "Steve Henry &lt;steven.henry@tdsecurities.com&gt;"
+                            ],
+                            "description": "User-facing eTrading web application",
+                            "main": "src/app/app.js",
+                            "license": "None",
+                            "private": true,
+                            "ignore": [
+                            "**/.*",
+                            "node_modules",
+                            "bower_components",
+                            "vendor",
+                            "test",
+                            "tests"
+                            ],
+                            "resolutions": {
+                            "jquery": "1.8.2"
+                            }
+                            }
+                        </code></pre>
+                    </section>
+
+                    <section id="bower_commands">
+                        <h2>Bower Commands</h2>
+                        <p style="text-align: left;">bower install</p>
+                        <ul>
+                            <li>install all packages from <i>bower.json</i></li>
+                        </ul>
+                        <p>&nbsp</p>
+                        <p style="text-align: left;">bower install [-g] <i>package_name</i> [--save-dev]</p>
+                        <ul>
+                            <li>install specific package</li>
+                            <li>[-g]: install package globally</li>
+                            <li>[--save-dev]: install package & save to <i>bower.json</i></li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section id="task_runners_root">
+                    <section id="task_runners">
+                        <h2>Task Runners</h2>
+                        <p>&nbsp</p>
+                        <p>For running Dev Ops tasks</p>
+                        <ul>
+                            <li>Grunt</li>
+                            <li>Gulp</li>
+                        </ul>
+                        <p>&nbsp</p>
+                        <img src="images/logos/grunt_logo.jpeg" />
+                        <img src="images/logos/gulp_logo.jpeg" />
+                    </section>
+
+                    <section id="task_examples">
+                        <h2>Task Examples</h2>
+                        <div style="overflow: scroll; height: 500px">
+                            <table>
+                                <tr>
+                                    <td>wiredep</td>
+                                    <td>Add 'script' and 'link' tags to <i>index.html</i> for all source code & 3rd party library javascript & css files</td>
+                                </tr>
+                                <tr>
+                                    <td>styles</td>
+                                    <td>Compile SCSS/SASS into CSS</td>
+                                </tr>
+                                <tr>
+                                    <td>clean</td>
+                                    <td>Clean output 'build' folder</td>
+                                </tr>
+                                <tr>
+                                    <td>templateCache</td>
+                                    <td>Pre-compile HTML partials (templates) to serve up on first load of website (for faster loading on first call)</td>
+                                </tr>
+                                <tr>
+                                    <td>fonts</td>
+                                    <td>Copy fonts to output 'build' folder</td>
+                                </tr>
+                                <tr>
+                                    <td>images</td>
+                                    <td>Copy images to output 'build' folder</td>
+                                </tr>
+                                <tr>
+                                    <td>vet</td>
+                                    <td>Run 'jshint' and 'jscs' to analyze javascript for errors and syntax/style issues</td>
+                                </tr>
+                                <tr>
+                                    <td>test</td>
+                                    <td>Execute client-side unit tests</td>
+                                </tr>
+                                <tr>
+                                    <td>minify</td>
+                                    <td>Optimize javascript for production by shrinking all method/variable names to 1 or 2 characters</td>
+                                </tr>
+                                <tr>
+                                    <td>concat</td>
+                                    <td>Concatenate all javascript & CSS source code files and 3rd party libraries into a single/group of files for each</td>
+                                </tr>
+                                <tr>
+                                    <td>watch</td>
+                                    <td>Watch javascript & CSS files for any changes, and immediately re-compile and re-serve to browser</td>
+                                </tr>
+                                <tr>
+                                    <td>browser-sync</td>
+                                    <td>Synchronize all open browsers to click/scroll to same position</td>
+                                </tr>
+                                <tr>
+                                    <td>serve</td>
+                                    <td>Run a local web server to serve up, watch, and build files</td>
+                                </tr>
+                                <tr>
+                                    <td>image-min</td>
+                                    <td>Compress images to a specific size range</td>
+                                </tr>
+                                <tr>
+                                    <td>bump</td>
+                                    <td>Increment the output build number</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="how_gulp_works">
+                        <h2>How Does Gulp Work?</h2>
+                        <ul>
+                            <li>Extensive set of 3rd party plugins you can import (<i>NPM</i> & <i>RequireJS)</i></li>
+                            <li>Define set of custom tasks, with other task dependencies (hierarchy)</li>
+                            <li><i>gulpfile.js</i> for task definitions</li>
+                            <li><i>gulp.config.js</i> for config</li>
+                            <li>'src', 'pipe', 'dest' functions</li>
+                            <li>Uses 'Node streams'</li>
+                        </ul>
+                        <p>Syntax:</p>
+                        <pre><code data-trim contenteditable>
+                            gulp.task('taskName', ['taskDependency1', 'taskDependency2'], function() {
+                            // task implemention
+                            // use 'src', 'pipe', 'dest'
+                            });
+                        </code></pre>
+                        <!--<img src="images/logos/gulp_logo.jpeg"/>-->
+                    </section>
+
+                    <section id="gulp_example">
+                        <h2>gulpfile.js & gulp.config.js</h2>
+                        <div style="width: 1200px">
+                        <pre style="float: left; width: 540px; margin-left: -175px"><code data-trim contenteditable>
+                            module.exports = function() {
+                            var client = './src/client';
+                            var clientAssets = client + 'assets/';
+                            var server = './src/node-server/';
+                            var temp = './.tmp/';
+                            // Import using RequireJS
+                            var wiredep = require('wiredep');
+
+                            var config = {
+                            alljs: [
+                            './src/**/*.js',
+                            './*.js'
+                            ],
+                            scss: clientAssets + 'scss/**/*.scss',
+                            css: temp + '**/*.css',
+                            build: './build/',
+                            optimized: {
+                            app: 'app.js',
+                            lib: 'lib.js'
+                            }
+                            };
+                            };
+                        </code></pre>
+                        <pre style="float:right; width: 700px"><code data-trim contenteditable>
+                            var gulp = require('gulp');
+                            var config = require('./gulp.config')();
+                            var $ = require('gulp-load-plugins')( {lazy: true} );
+
+                            gulp.task('build', ['wiredep', 'images', 'fonts', function() {
+                            log('Building everything...');
+                            });
+
+                            gulp.task('wiredep', ['styles', 'templateCache'], function() {
+                            var options = config.getWiredepDefaultOptions();
+                            var wiredep = require('wiredep').stream;
+
+                            return gulp
+                            .src( config.index )
+                            .pipe( wiredep(options) )
+                            .pipe( $.inject( gulp.src(config.css) ) )
+                            .pipe( gulp.dest( config.client ) );
+                            });
+                        </code></pre>
+                        </div>
+                    </section>
+
+                    <section id="gulp_v_grunt">
+                        <h2>Gulp v. Grunt</h2>
+                        <p>We use <u>Gulp</u>, due to a couple key features/optimizations:</p>
+                        <p>&nbsp</p>
+                        <p>Node Streams</p>
+                        <small>Output from every stage is 'piped' using an in-memory stream to the next stage. Grunt uses file I/O between every step (slow)</small>
+                        <p>&nbsp</p>
+                        <p>Parallel Dependency Running</p>
+                        <small>All the dependencies are run in parallel in Gulp (serial in Grunt [slower])</small>
+                        <p>&nbsp</p>
+                        <p>Cleaner Syntax</p>
+                        <small>Grunt uses a more 'convention-oriented' syntax. Gulp is 'configuration-oriented', and reads like code ('src', 'pipe', 'dest')</small>
+                    </section>
+                </section>
+
+                <section id="test_frameworks_root">
+                    <section id="testing">
+                        <h2>Testing</h2>
+
+                        <div>
+                            <img src="images/logos/karma_logo.jpeg"/>
+                            <img src="images/logos/jasmine_logo.png" style="width: 420px; height: 116px"/>
+                        </div>
+                    </section>
+
+                    <section id="karma">
+                        <h2>Karma</h2>
+                        <p>Adding to the project:</p>
+                        <pre><code data-trim contenteditable>
+                            npm install karma --save-dev
+                        </code></pre>
+                        <p>&nbsp</p>
+                        <ul>
+                            <li>Test Runner for JavaScript</li>
+                            <li>Uses <i>NodeJS</i> to serve pages, <i>PhantomJS</i> as headless browser</li>
+                            <li>Handles launching/killing of browsers to run Test Cases</li>
+                            <li>Produces Test Reports</li>
+                            <li>Supports cross-browser testing</li>
+                            <li>Integrates with CI tools</li>
+                        </ul>
+                    </section>
+
+                    <section id="jasmine">
+                        <h2>Jasmine</h2>
+                        <p>Adding to the project:</p>
+                        <pre><code data-trim contenteditable>
+                            npm install jasmine --save-dev
+                        </code></pre>
+                        <p>&nbsp</p>
+                        <ul>
+                            <li>Behavior-driven development (BDD) test framework</li>
+                            <li>Write test cases, assertions</li>
+                            <li>Mocking</li>
+                            <li>Test using: <i>describe(), it(), expect()</i></li>
+                            <li>Can 'nest' <i>describes</i></li>
+                        </ul>
+                    </section>
+
+                    <section id="jasmine_examples">
+                        <!--<h2>Jasmine - Example</h2>-->
+                        <pre><code data-trim contenteditable>
+mainApp.factory('permissionService', function() {
+    return {
+        hasDevPermissions: hasDevPermissions,
+        hasTraderPermissions: hasTraderPermissions
+    };
+};
+                        </code></pre>
+                        <p>Tests</p>
+                        <pre><code data-trim contenteditable>
+describe('permissionService: ', function() {
+    var permissionSvc;
+    var testGroups;     // permission groups (test data)
+
+    beforeEach(function() {
+        module('mainApp');
+
+        inject(function(permissionService) {
+            permissionSvc = permissionService;
+        )};
+        testGroups = [ FO: { enabled: false }, DEV: { enabled: false },
+                       TRADER: {enabled: true }; ];
+    });
+
+    afterEach(function() { } );
+
+    it('should disallow DEV permissions for non-developer', function() {
+        expect(permissionSvc.hasDevPermissions(testGroups)).toBeFalsy();
+    });
+
+    it('should allow TRADER permissions for traders', function() {
+        expect(permissionSvc.hasTraderPermissions(testGroups)).toBeTruthy();
+    });
+});
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section id="angular_best_practices_root">
+                    <section id="angular_topics">
+                        <h2>Angular Best Practices Topics</h2>
+                        <ul>
+                            <li><strong>Project Structure</strong>
+                            </li>
+                            <p></p>
+                            <li><strong>Decomposition with Services</strong>
+                            </li>
+                            <p></p>
+                            <li><strong>Decomposing Navigation</strong>
+                                <ul>
+                                    <li>Changing States</li>
+                                    <li>Resolving & Injecting Params</li>
+                                </ul>
+                            </li>
+                            <p></p>
+                            <li><strong>Decomposing Controllers</strong>
+                                <ul>
+                                    <li>Writing Controllers</li>
+                                    <li>Refactoring into Services</li>
+                                </ul>
+                            </li>
+                            <p></p>
+                            <li><strong>Decomposition with Directives</strong>
+                                <ul>
+                                    <li>Writing & Refactoring into Directives</li>
+                                    <li>Isolated Scopes</li>
+                                </ul>
+                            </li>
+                            <li><strong>Debugging</strong>
+                                <ul>
+                                    <li>Chrome Dev Tools</li>
+                                    <li>Angular Batarang</li>
+                                    <li>plnkr.co</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="angular_goal">
+                        <h2>Common Goal: Decomposition!</h2>
+                        <div class="row">&nbsp</div>
+                        <ul>
+                            <li>Single Responsibility</li>
+                            <li>Dependency Injection</li>
+                            <li>Loose Coupling</li>
+                            <li>Testable Components</li>
+                            <li>(Avoid Dev Overlap & Merge Conflicts)</li>
+                        </ul>
+                        <div class="row">&nbsp</div>
+                        <blockquote>
+                            &ldquo;When I change functionality or add a feature, it should only
+                                   affect a single, isolated section of code&rdquo;
+                        </blockquote>
+                    </section>
+                </section>
+
+                <section id="root_structure">
+                    <section id="project_structure">
+                        <h2>Project Structure</h2>
+                        <div class="row">&nbsp</div>
+                        <ul>
+                            <li>Modules</li>
+                            <li>File Types</li>
+                            <li>Naming Conventions</li>
+                        </ul>
+                        <div class="row">&nbsp</div>
+                        <div class="row">
+                            <img width="178" height="238" src="images/arrow.png" alt="Down arrow">
+                        </div>
+                    </section>
+
+                    <section id="app_structure">
+                        <h2>Project Structure</h2>
+                        <img src="images/project_structure_1_modules.PNG" />
+                        <p>
+                            Break out application root into folders by <strong><u>module</u></strong>.
+                        </p>
+                    </section>
+
+                    <section id="module_structure">
+                        <h2>Module Structure</h2>
+                        <img src="images/project_structure_2_module_folders.PNG" />
+                        <p>
+                            Break out modules into folders by <strong><u>type</u></strong> of component.
+                        </p>
+                    </section>
+
+                    <section id="common_structure">
+                        <h2>"Common" Structure</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="images/project_structure_3_common_folders.PNG" />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">&nbsp</div>
+                                <div class="vert-center text-left">
+                                    <p>Break out "common" into folders by <strong><u>type</u></strong> of component.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="file_naming_convention">
+                        <h2>File Naming Convention</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="images/project_structure_4_module_naming_convention.PNG" />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">&nbsp</div>
+                                <div class="vert-center text-left">
+                                    <p>Controllers</p>
+                                    <small>
+                                        <ul>
+                                            <li>'Ctrl' suffix</li>
+                                            <li>ex. rsRateSummaryCtrl.js</li>
+                                        </ul>
+                                    </small>
+                                    <p>Services</p>
+                                    <small>
+                                        <ul>
+                                            <li>'Service' suffix</li>
+                                            <li>ex. rsSaveDataService.js</li>
+                                        </ul>
+                                    </small>
+                                    <p>HTML Partials/Templates</p>
+                                    <small>
+                                        <ul>
+                                            <li>Name should match controller</li>
+                                            <li>'.tpl.html' file type</li>
+                                            <li>ex. rsRateSummary.tpl.html</li>
+                                        </ul>
+                                    </small>
+                                    <p>Directives</p>
+                                    <small>
+                                        <ul>
+                                            <li>No suffix or prefix</li>
+                                            <li>ex. rsOptionRow.js, rsOptionRow.tpl.html</li>
+                                        </ul>
+                                    </small>
+                                    <div class="row">&nbsp</div>
+                                    <div class="row">
+                                        <p>Makes it clear what type of file it is.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="module_naming_convention">
+                        <h2>Module Naming Convention</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="images/project_structure_4_module_naming_convention.PNG" />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">&nbsp</div>
+                                <div class="vert-center text-left">
+                                    <p>Use module <strong><u>prefix</u></strong> for all module names.</p>
+                                    <p>ex. For 'rate summary', use 'rs':</p>
+                                    <small>
+                                        <ul>
+                                            <li>rsSomeController.js</li>
+                                            <li>rsSomeTemplate.tpl.html</li>
+                                        </ul>
+                                    </small>
+                                    <div class="row">&nbsp</div>
+                                    <div class="row">
+                                        <p>Prevents naming collisions between modules.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section id="root_services">
+                    <section id="decomposing_services">
+                        <h2>Decomposition with Services</h2>
+                        <div class="row">
+                            <img width="178" height="238" src="images/arrow.png" alt="Down arrow">
+                        </div>
+                    </section>
+
+                    <section id="revealing_module">
+                        <h2>Revealing Module Pattern</h2>
+                        <pre><code data-trim contenteditable>
+// Use 'factory' to create services
+mainApp.factory('rsSaveDataService.js', function(userService) {
+
+    // Declare variables at top
+    var VALID_GROUPS = ['Underwriter'];
+
+    // Return the 'interface' of public functions (REVEALING MODULE PATTERN)
+    return {
+        // Expose function with same name
+        saveDataToDb: saveDataToDb,
+        saveDataLocally: saveDataLocally
+    };
+
+    function saveDataToDb(task) {
+        // save to db
+    }
+
+    function saveDataLocally(task) {
+        if ( userService.isMemberOf(VALID_GROUPS) ) {
+            updateMasterTask(task);     // save locally
+        }
+    }
+
+    // Private function -- NOT exposed
+    function updateMasterTask(task) {
+    }
+});
+                        </code></pre>
+                        <p>Only want public functions exposed.</p>
+                        <p>Provides clear definition of what methods to test.</p>
+                    </section>
+
+                    <section id="testing_services">
+                        <h2>Testing Services</h2>
+                        <pre><code data-trim contenteditable>
+describe('rsSaveDataService: ', function() {
+var validTask, taskWithNoCoverages, userServiceMock;
+var isMember;
+
+beforeEach(function() {
+    module('mainApp');      // Must declare angular module to use
+
+    createTestData();       // Reset test data
+    createMocks();          // Create mock service dependencies
+}
+
+function createTestData() {
+    taskWithNoCoverages = { name: 'EmptyCustomer', coverages: undefined };
+    validTask = { name: 'ValidCustomer',
+                  coverages [ { name: 'LTD', id: 1 },
+                              { name: 'STD', id: 2 } ]};
+    isMember = false;
+}
+
+function createMocks() {
+    // Mock the functions that would normally be called
+    // Return a value that can be locally changed between test expectations
+    userServiceMock = { isMemberOf: function() { return isMember; } };
+
+    // Tell the Angular injector to provide the mock whenever
+    // 'userService' is requested
+    module(function($provide) {
+        $provide.value('userService', userServiceMock);
+    });
+}
+
+// BDD: group common tests further
+describe('local saving: ', function() {
+
+    it('should return false if the task has no coverages',
+            inject(function(rsSaveDataService) {
+        // Prep response from mock
+        isMember = false;
+        // Call public function to test
+        expect( rsSaveDataService.saveDataLocally(taskWithNoCoverages) )
+            .toBe(false);
+    });
+
+    it('should return true if the task has at least 1 coverage',
+            inject(function(rsSaveDataService) {
+        // Prep response from mock
+        isMember = true;
+        // Call public function to test
+        expect( rsSaveDataService.saveDataLocally(validTask) )
+            .toBe(true);
+    });
+});
+
+describe('database saving: ', function() {
+    // write tests
+});
+});
+                        </code></pre>
+                        <div class="row">
+                            <p>Replace service's injected dependencies using '$provide'.</p>
+                            <p>
+                                Write unit tests for each 'public' function.
+                            </p>
+                            <p>Use nested 'describe' to break BDD test groups down further.</p>
+                        </div>
+                    </section>
+                </section>
+
+                <section id="root_nav">
+                    <section id="decomposing_navigation">
+                        <h2>Decomposing Navigation</h2>
+                        <div class="row">
+                            <img width="178" height="238" src="images/arrow.png" alt="Down arrow">
+                        </div>
+                    </section>
+
+                    <section id="nav_changing_states">
+                        <h2>Changing States</h2>
+                        <p>
+                            Use "states" instead of routing.
+                        </p>
+                        <p>
+                            Allows child states to inherit from parent states.
+                        </p>
+                        <p>
+                            Also allows asynchronous variables to be resolved in advance.
+                        </p>
+                        <pre><code data-trim contenteditable>
+function() {
+    // Go to new 'state'
+    $state.go('^.analyze', {}, { location: 'replace' });
+
+    // Force reload of current state
+    $state.transitionTo($state.current, $stateParams,
+            { reload: true, inherit: true, notify: true }
+    );
+}
+                        </code></pre>
+                    </section>
+
+                    <section id="nav_resolving_vars">
+                        <h2>Resolving Variables</h2>
+                        <pre><code data-trim contenteditable>
+mainApp.config( function($stateProvider) {
+
+$stateProvider
+    .state('task', {
+    abstract: true,
+    url: '/tasks/:taskId',
+    templateUrl: 'common/task.tpl.html',
+    controller: 'taskCtrl',
+    resolve: {
+        userGroups: function (userService) {
+            return userService.getUserGroups();
+        },
+        task: function ($stateParams, taskService) {
+            // Get task from server
+            return taskService.get($stateParams.taskId);
+        },
+        selectedOptionId: function ($stateParams, optionService) {
+            // Determine what optionId should be selected
+            return optionService.getSelectedOption($stateParams.optionId);
+        }
+    }
+});
+                        </code></pre>
+                        <p>
+                            <strong><u>All</u></strong> resolves will finish before the state transitions.
+                        </p>
+                        <p>
+                            Ensures all params are available when the Controller is loaded.
+                        </p>
+                    </section>
+
+                    <section id="injecting">
+                        <h2>Injecting Resolved Variables</h2>
+                        <div class="row">&nbsp</div>
+                        <pre><code data-trim contenteditable>
+// Inject any 'pre-resolved' values along with the Services
+// ie. 'userGroups', 'task', 'selectedOptionId'
+mainApp.controller('taskCtrl',
+               function(taskService, userGroups, task, selectedOptionId) {
+
+    // Use the pre-solved variables
+    $scope.currentTask = task;
+    $scope.selectedOptionId = selectedOptionId;
+});
+                        </code></pre>
+                        <div class="row">&nbsp</div>
+                        <p>
+                            Values from $stateProvider 'resolve:' are available to be injected.
+                        </p>
+                    </section>
+                </section>
+
+                <section id="root_controllers_services">
+                    <section id="services_and_controllers">
+                        <h2>Writing Controllers & Services</h2>
+                        <div class="row">&nbsp</div>
+                        <div clas="row">
+                            <img width="178" height="238" src="images/arrow.png" alt="Down arrow">
+                        </div>
+                    </section>
+
+                    <section id="not_to_do_in_controllers">
+                        <h2>What <u>NOT</u> to do in Controllers</h2>
+                        <div class="row">
+                            <pre><code data-trim contenteditable>
+mainApp.controller('taskCtrl',
+                function(optionService, userService, commonDialogService,
+                         userGroups, task, selectedOptionId) {
+
+// Do NOT do this (putting business logic in controller)
+$scope.saveData = function() {
+if (!$scope.isRenewalPremiumValid($scope.displayTask)) {
+    return;
+}
+var savePromiseDeferred = $q.defer();
+
+// Save the updated MODEL task to the DB
+optionService.updateOptions($scope.displayTask)
+    .then(function () {
+        // SUCCESS
+        $log.log('Update successful for TaskId: ' + displayTask.id);
+
+        var isUnderwriter = userService.hasGroupMembership(['UNDERWRITER']);
+        if (isUnderwriter) {
+            checkForUnderWriterEditability(displayTask.renewalDate);
+        }
+            savePromiseDeferred.resolve();
+        },
+        function (error) {
+            // FAIL
+            $log.log('Update failed for TaskId: ' + displayTask.id);
+            var errorStr = (typeof error === 'object' &&
+                            error.status === 'Error')
+                            ? SAVE_FAILED : SERVER_ERROR;
+                commonDialogService.errorDialog(error.msg, errorStr);
+                savePromiseDeferred.reject(error);
+            }
+        );
+
+    return savePromiseDeferred.promise;
+}
+
+/**
+* check for currentRenewalPremium against AnnualRenewalPremium.
+* If currentRenewalPremium < AnnualRenewalPremium return errorFlag = true
+*/
+function isRenewalPremiumValid(displayTask) {
+    var currentAnnualPremium = 0;
+    var minimumAnnualPremium = 0;
+    for (var i = 0; i < displayTask.coverages.length; i++) {
+        var coverage = displayTask.coverages[i];
+        for (var j = 0; j < coverage.options.length; j++) {
+            var option = coverage.options[j];
+            for (var k = 0; k < option.rates.length; k++) {
+                var rate = option.rates[k];
+                if(rate.type === 'Minimum') {
+                    minimumAnnualPremium = rate.annualPremium;
+                }
+                else if (rate.type === 'Current') {
+                    currentAnnualPremium = rate.annualPremium;
+                }
+            }
+            if (currentAnnualPremium < minimumAnnualPremium ) {
+                // FAIL. Does NOT pass requirements. Show error dialog.
+                var errorObj = {status: "Error",
+                msg: "Requested change has resulted in a Renewal Premium that is below the minimum allowed for the coverage " +
+                coverage.underwritingProduct};
+                showSaveErrorDialog(errorObj);
+                return false;
+            }
+        }
+    }
+    return true;    // premium is OK
+}
+
+/**
+* On successful save, checks to see if the underwriter can make edits based on whether the renewalDate is within 6 months of current date.
+*/
+function checkForUnderWriterEditability(renewalDate) {
+    var sixMonthsFromRenewalDate = moment(renewalDate).add('months', 6);
+    if ((new Date() >= renewalDate && new Date() <= sixMonthsFromRenewalDate)) {
+        //show message that they will not be able to make edits to the task,
+        // 6 months from the override anniversary/renewal date.
+        // If no value is present for override anniversary/renewal date,
+        // use the value stored in anniversary/renewal date instead.
+        commonDialogService.alertDialog("You will not be able to make " +
+            edits to this task 6 months from the Renewal Date");
+    }
+}
+});
+                            </code></pre>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <p>What 'SaveData()' actually does:</p>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <small>
+                                        <ol>
+                                            <li>Check valid renewal premium</li>
+                                            <li>Check if Underwriter is eligible</li>
+                                            <li>Save all options</li>
+                                            <li>Show error dialog if fails</li>
+                                        </ol>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="writing_controllers">
+                        <h2>Writing Controllers</h2>
+                        <div class="row">&nbsp</div>
+                        <ul>
+                            <li>
+                                <p>Treat Controllers as "ViewModels"</p>
+                                <small>
+                                    <ul><li>Only use to "wire up" the view</li></ul>
+                                </small>
+                            </li>
+                            <li>
+                                <p>Do <u>not</u> use 'promises' on load</p>
+                                <small>
+                                    <ul><li>Should be done with $stateProvider</li></ul>
+                                </small>
+                            </li>
+                            <li>
+                                <p><u>All</u> business logic goes in 'Services'</p>
+                                <small>
+                                    <ul>
+                                        <li>Decompose into single responsibility</li>
+                                        <li>Easy to unit test</li>
+                                    </ul>
+                                </small>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="refactoring_controllers">
+                        <h2>Refactoring Controllers</h2>
+                        <div class="row">
+                            <pre><code data-trim contenteditable>
+mainApp.controller('taskCtrl',
+          function(rsSaveDataService, userGroups, task, selectedOptionId) {
+    // NOTICE: now injected only 1 service (rsSaveDataService) instead of 3
+    $scope.saveData = function() {
+        if (!rsSaveDataService.isRenewalPremiumValid($scope.displayTask)) {
+            return;
+        }
+
+        var promise = rsSaveDataService.saveDataToDb($scope.displayTask);
+    };
+});
+                            </code></pre>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <p>What 'SaveData()' does now:</p>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <small>
+                                        <ol>
+                                            <li>Call service to check if valid renewal premium</li>
+                                            <li>Call service to save data</li>
+                                        </ol>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="refactored_save_service">
+                        <h2>Refactored Save() into New Service</h2>
+                        <pre><code data-trim contenteditable>
+mainApp.factory('rsSaveDataService', function(optionService, userService) {
+
+return {
+    // ** Unit test these 2 methods !!
+    saveDataToDb: saveDataToDb,
+    isRenewalPremiumValid: isRenewalPremiumValid
+};
+
+function saveDataToDb() {
+    // Save the updated MODEL task to the DB
+    optionService.updateOptions($scope.displayTask)
+        .then(function () {
+        // SUCCESS
+        $log.log('Update successful for TaskId: ' + displayTask.id);
+
+        var isUnderwriter = userService.hasGroupMembership(['UNDERWRITER']);
+        if (isUnderwriter) {
+            checkForUnderWriterEditability(displayTask.renewalDate);
+        }
+            savePromiseDeferred.resolve();
+        },
+        function (error) {
+            // FAIL
+            $log.log('Update failed for TaskId: ' + displayTask.id);
+
+            // ** Moved into 'declarative' method
+            showSaveErrorDialog(error);
+            // ** BEFORE
+            //var errorStr = (typeof error === 'object' &&
+            //                error.status === 'Error')
+            //                ? SAVE_FAILED : SERVER_ERROR;
+            //    commonDialogService.errorDialog(error.msg, errorStr);
+
+            savePromiseDeferred.reject(error);
+        }
+    );
+    return savePromiseDeferred.promise;
+}
+
+function showSaveErrorDialog(error) {
+    var errorStr = (typeof error === 'object' &&
+                    error.status === 'Error') ?
+                    SAVE_FAILED : SERVER_ERROR;
+        commonDialogService.errorDialog(error.msg, errorStr);
+}
+
+/**
+* check for currentRenewalPremium against AnnualRenewalPremium.
+* If currentRenewalPremium < AnnualRenewalPremium return errorFlag = true
+*/
+function isRenewalPremiumValid(displayTask) {
+    var currentAnnualPremium = 0;
+    var minimumAnnualPremium = 0;
+    for (var i = 0; i < displayTask.coverages.length; i++) {
+        var coverage = displayTask.coverages[i];
+        for (var j = 0; j < coverage.options.length; j++) {
+            var option = coverage.options[j];
+            for (var k = 0; k < option.rates.length; k++) {
+                var rate = option.rates[k];
+                if(rate.type === 'Minimum') {
+                    minimumAnnualPremium = rate.annualPremium;
+                }
+                else if (rate.type === 'Current') {
+                    currentAnnualPremium = rate.annualPremium;
+                }
+            }
+            if (currentAnnualPremium < minimumAnnualPremium ) {
+                // FAIL. Does NOT pass requirements. Show error dialog.
+                var errorObj = {status: "Error",
+                msg: "Requested change has resulted in a Renewal Premium that is below the minimum allowed for the coverage " +
+                coverage.underwritingProduct};
+                showSaveErrorDialog(errorObj);
+                return false;
+            }
+        }
+    }
+    return true;    // premium is OK
+}
+
+/**
+* On successful save, checks to see if the underwriter can make edits based on whether the renewalDate is within 6 months of current date.
+*/
+function checkForUnderWriterEditability(renewalDate) {
+    var sixMonthsFromRenewalDate = moment(renewalDate).add('months', 6);
+    if ((new Date() >= renewalDate &&
+         new Date() <= sixMonthsFromRenewalDate)) {
+        // show message that they will not be able to make edits to the task,
+        // 6 months from the override anniversary/renewal date.
+        // If no value is present for override anniversary/renewal date,
+        // use the value stored in anniversary/renewal date instead.
+        commonDialogService.alertDialog("You will not be able to make " +
+            "edits to this task 6 months from the Renewal Date");
+    }
+}
+});
+                        </code></pre>
+                        <div class="row">
+                            <ul>
+                                <li>Rule: If '$scope' not used, it is business logic => use a Service</li>
+                                <li>Service becomes a fully isolated component</li>
+                                <li>Single Responsibility: "verify save data is valid, and save it"</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="service_single_responsibility">
+                        <h2>Defining a Service</h2>
+                        <div class="row">&nbsp</div>
+                        <p>
+                            Find a single responsibility for the service,
+                        </p>
+                        <p>
+                            and be able to describe it in a sentence:
+                        </p>
+                        <!--<p>-->
+                            <!--<ul>-->
+                                <!--<li><p>rsCanEditRateService</p>-->
+                                    <!--<small><ul><li>Determines if rate fields should be editable</li></ul></small>-->
+                                <!--</li>-->
+                                <!--<li><p>rsDisplaySaveService</p>-->
+                                    <!--<small><ul><li>Saves rate summary data to the database</li></ul></small>-->
+                                <!--</li>-->
+                                <!--<li><p>rsInitializationService</p>-->
+                                    <!--<small><ul><li>Initializes the task to be used on rate summary</li></ul></small>-->
+                                <!--</li>-->
+                                <!--<li><p>userService</p>-->
+                                    <!--<small><ul><li>Responsible for the current user's id and permissions</li></ul></small>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        <!--</p>-->
+                        <p>
+                            <ul>
+                                <li><p>dmdsCanEditCurveService</p>
+                                    <small><ul><li>Determines if curves can be edited</li></ul></small>
+                                </li>
+                                <li><p>dmdsSaveQuoteService</p>
+                                    <small><ul><li>Validates & saves curves to the server</li></ul></small>
+                                </li>
+                                <li><p>dmdsInitializationService</p>
+                                    <small><ul><li>Initializes curves to an easy to display format</li></ul></small>
+                                </li>
+                                <li><p>userService</p>
+                                    <small><ul><li>Stores and checks the current user's permissions</li></ul></small>
+                                </li>
+                            </ul>
+                        </p>
+                        <small>
+                            <p>
+                                If specific to module, prefix it (ex. 'dmds') and keep in module.
+                            </p>
+                            <p>
+                                If it can be shared, place in '/common', with no prefix.
+                            </p>
+                        </small>
+                    </section>
+                </section>
+
+                <section id="root_directives">
+                    <section id="directives">
+                        <h2>Writing Directives</h2>
+                        <div class="row">&nbsp</div>
+                        <div>
+                            <ul>
+                                <li>When to use directives</li>
+                                <li>How to write them</li>
+                                <li>How to test them</li>
+                            </ul>
+                        </div>
+                        <div class="row">&nbsp</div>
+                        <div clas="row">
+                            <img width="178" height="238" src="images/arrow.png" alt="Down arrow">
+                        </div>
+                    </section>
+
+                    <section id="directives_when">
+                        <h2>When To Use Directives</h2>
+                        <div class="row">&nbsp</div>
+                        <ul>
+                            <li>Break down HTML into logical components</li>
+                            <li><p>Use 'Domain Specific Language' (DSL)</p>
+                                <small><ul><li>ie. Break down your code into components that map to their read-world representation
+                                       </li></ul></small>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="directives_example_desc">
+                        <h2>Directives - Rate Summary Example [1]</h2>
+                        <img src="images/directives_rs_breakdown_description.png" />
+                        <p>
+                            <ul>
+                                <li>Selected Option</li>
+                                <li>Rate Summary Header</li>
+                                <li>Coverages (repeat)
+                                    <ul>
+                                        <li>Options (repeat)
+                                            <ul>
+                                                <li>Option Header</li>
+                                                <li>Option Total Header (if >= 2 plans)</li>
+                                                <li>Plan</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </p>
+                    </section>
+
+                    <section id="directives_example_name">
+                        <h2>Directives - Rate Summary Example [2]</h2>
+                        <img src="images/directives_rs_breakdown_name.png" />
+                        <p>
+                            Use 'ar' prefix if 'Common' directive (Auto Renewals).
+                        </p>
+                        <p>
+                            Use 'rs' prefix is specific to module (Rate Summary).
+                        </p>
+                    </section>
+
+                    <section id="directives_rs_html">
+                        <h2>Rate Summary HTML - With Directives</h2>
+                        <div class="row">&nbsp</div>
+                        <pre><code data-trim contenteditable>
+<html>
+<!-- 'selected option' dropdown -->
+<ar-selected-option options="options"></ar-selected-option>
+
+<!-- Rate Summary table header -->
+<rs-header task="task"></rs-header>
+
+<!-- Add table header HTML here -- NOT a directive -->
+
+<div class="row" ng-repeat="coverage in coverages">
+<!-- Coverage header -- uses exist 'Common' directive -->
+<div accordion-heading>
+    <span>{{coverage.coverageType}}</span>
+</div>
+
+<!-- Repeat for every 'option' -->
+<div class="row" ng-repeat="option in coverage.options">
+    <rs-option option="option"
+               recalculate-rates="recalculateRates()">
+    </rs-option>
+</div>
+</div>
+</html>
+                        </code></pre>
+                        <div class="row">
+                            <p>Decomposed into directives for:</p>
+                            <ul>
+                                <li>Selected Option, Rate Summary Header, Options</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="directives_option_html">
+                        <h2>'Option' Directive - HTML</h2>
+                        <div class="row">&nbsp</div>
+                        <pre><code data-trim contenteditable>
+<html>
+<!-- Option header row -->
+<rs-option-header option="option"></rs-option-header>
+
+<!-- *IF* 2 or more Plans, show Option Total row -->
+<div ng-if="isOptionTotalRowVisible">
+<rs-option-total-header option="option"></rs-option-total-header>
+</div>
+
+<!-- Repeat for each plan -->
+<div ng-repeat="plan in option.plans">
+<rs-plan plan="plan"
+         recalculate-rates="recalculateRates()">
+</rs-plan>
+</div>
+</html>
+                        </code></pre>
+                        <div class="row">&nbsp</div>
+                        <div class="row">
+                            <p>Decomposed 'RateSummary -> Option' into directives for:</p>
+                            <ul>
+                                <li>Option Header, Option Total Header, Plans</li>
+                            </ul>
+                        </div>
+                        <div class="row">&nbsp</div>
+                        <div class="row">
+                            <p>NOTE: Directives declared (in .js) as camelcase,</p>
+                            <p>but written in HTML as snake-case (with hyphens).</p>
+                            <ul><li>js: recalculateRates() -> html: recalculate-rates()</li></ul>
+                        </div>
+                    </section>
+
+                    <section id="directives_option_ctrl">
+                        <h2>'Option' Directive & Controller</h2>
+                        <div class="row">&nbsp</div>
+                        <pre><code data-trim contenteditable>
+mainApp.directive('rsOption', function() {
+return {
+    restrict: 'E',      // directive in an HTML 'element'
+    replace: true,      // replace 'rs-option' HTML element with template
+    templateUrl: 'rate/templates/rsOption.tpl.html',    // HTML template
+    controller: 'rsOptionCtrl',     // controller for directive
+    scope: {                        // *isolated* scope (since {} )
+        option: '=',                // 2-way binding to 'option' variable
+        recalculateRates: '&'       // function passed in from parent
+    }
+};
+});
+                        </code></pre>
+                        <div class="fragment">
+                            <pre><code data-trim contenteditable>
+mainApp.controller('rsOptionCtrl', function($scope) {
+    // Show Option Total row if 2 or more plans
+    $scope.isOptionTotalRowVisible = $scope.option.plans >= 2;
+});
+                            </code></pre>
+                            <div class="row">
+                                <p>Inject Service dependencies into new directive controller</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="isolated_scopes">
+                        <h2>Directives - Isolated Scopes</h2>
+                        <div class="row">&nbsp</div>
+                        <p>
+                            3 types of 'scopes':
+                        </p>
+                        <ul>
+                            <li><p>Shared</p>
+                                <small><ul><li>At same level as parent</li></ul></small>
+                            </li>
+                            <li><p>Inherited</p>
+                                <small><ul><li>Inherit parent's scope, but parent cannot see you</li></ul></small>
+                            </li>
+                            <li><p>Isolated</p>
+                                <small><ul><li>Self-contained scope -- can only see variables and functions passed in</li></ul></small>
+                            </li>
+                        </ul>
+                        <div class="row">&nbsp</div>
+                        <p>
+                            Almost always, use <strong><u>isolated scopes</u></strong>.
+                        </p>
+                        <p>
+                            Describes an interface's dependencies.
+                        </p>
+                        <p>
+                            Avoid "assumptions" of parent scopes.
+                        </p>
+                        <p>
+                            Prevents "tight coupling".
+                        </p>
+                    </section>
+                </section>
+
+                <section id="summary">
+                    <h2>Angular Summary</h2>
+                    <ul>
+                        <li><p>Break up app folders into Module, then component Type</p>
+                            <small><ul><li>ex. Rates -> Controllers, Templates, Directives, Filters, Services</li></ul></small>
+                        </li>
+                        <li><p>Prefix Module files with 2 module letters</p>
+                            <small><ul><li>ex. Rates module -> rsDataSaveService [ie. 'rs']</li></ul></small>
+                        </li>
+                        <li><p>When changing states, load async variables with 'resolve:' in $stateProvider</p></li>
+                        <li><p>Use Controllers as View Models only</p>
+                            <small><ul><li>ie. Only use it to "wire up" the view templates</li></ul></small>
+                        </li>
+                        <li><p>Put all business logic in single responsibility services</p></li>
+                        <li><p>Use 'revealing module pattern' to expose public functions in services</p></li>
+                        <li><p>Use Directives to break up HTML into smaller components</p>
+                            <small><ul><li>ex. Coverages, Options, Plans, Header</li></ul></small>
+                        </li>
+                        <li><p>Use 'isolated scopes' when creating directives</p>
+                            <small><ul><li>Pass in the minimal set of required params</li></ul></small>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="spa_comparison_root">
+                    <section id="spa_frameworks">
+                        <h2>SPA Framework Comparison</h2>
+                        <div>
+                            <img src="images/logos/angular_logo.png" style="width: 450px; height: 140px"/>
+                            <img src="images/logos/knockout_logo.jpeg" />
+                        </div>
+                        <div>
+                            <img src="images/logos/react_logo.png" style="width: 280px; height: 110px" />
+                        </div>
+                        <div>
+                            <img src="images/logos/durandal_logo_vert.jpeg" style="width: 315px; height: 225px" />
+                            <img src="images/logos/ember_logo.jpeg" />
+                        </div>
+                    </section>
+
+                    <section id="knockout_durandal">
+                        <h2>Knockout & Durandal vs. Angular</h2>
+                        <ul>
+                            <li>Knockout: mostly only provides bindings</li>
+                            <li>Durandal: jQuery + Knockout + RequireJS (DI)</li>
+                        </ul>
+                        <div>
+                            <img src="images/logos/knockout_logo.jpeg" />
+                            <img src="images/logos/durandal_logo_horz.jpeg" />
+                        </div>
+                        <ul>
+                            <li>Binding - must convert a <i>POJO</i> to an <i>Observable</i> object, then back again</li>
+                            <li>Dep. Injection - requires 3rd party library (RequireJS)</li>
+                            <li>Durandal creator left to join Angular 2.0 team</li>
+                        </ul>
+                    </section>
+
+                    <section id="react">
+                        <h2>React vs. Angular</h2>
+                        <ul>
+                            <li>React is an implement of ECMAScript 6 <i>web components</i> - which is equivalent to Angular <i>directives</i></li>
+                            <li>NOT an SPA framework</li>
+                        </ul>
+                        <div>
+                            <img src="images/logos/react_logo.png" />
+                        </div>
+                        <p>Angular 1.x Issue: Data Binding Updates w/ 1000+ in Scope</p>
+                        <ul>
+                            <li>Angular uses 'dirty checking': check every item whenever any variable changes</li>
+                            <li>React uses a 'virtual DOM': keeps a duplicate copy of the DOM, and only requests actual DOM changes needed to update</li>
+                            <li>Angular 2.0 solves this with new implementation - typically faster than React</li>
+                        </ul>
+                    </section>
+
+                    <section id="ember">
+                        <h2>Ember vs. Angular</h2>
+                        <p>Ember is a full featured SPA framework</p>
+                        <div>
+                            <img src="images/logos/ember_logo.jpeg" />
+                        </div>
+                        <ul>
+                            <li>Dep. Injection: required dependencies are optional to inject; no constructor injection; no circular dependency checking</li>
+                            <li>Data Binding: relies on 'Handlebars' 3rd party library; ugly syntax</li>
+                            <li>Community Support: Angular is backed by Google, and larger dev community</li>
+                        </ul>
+                        <!--<pre><code data-trim contenteditable>-->
+                            <!--<div {{bind-attr trade="myTrade" desc="myDesc"}} />-->
+                        <!--</code></pre>-->
+                    </section>
+
+                    <section id="angular2">
+                        <h2>Angular 2.0</h2>
+                        <ul>
+                            <li>Change Detection: massively improved, supports 1000+ items</li>
+                            <li>New router <i>(ui-router)</i>: states with inheritance</li>
+                            <li>TypeScript: recommended use; class-like structure; compile-time checking</li>
+                            <li>i18n: support for internationalization</li>
+                            <li>ngAnimate: lots of new animation support</li>
+                            <li>Nearly a full re-write with framework-wide breaking changes</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section id="summary_end">
+                    <table>
+                        <tr>
+                            <td style="vertical-align: middle">Package Managers</td>
+                            <td><img src="images/logos/npm_logo.png" style="width: 235px; height: 105px"/></td>
+                            <td><img src="images/logos/bower_logo.jpeg" style="width: 225px; height: 105px"/></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle">MVVM, Routing, Binding, DI</td>
+                            <td><img src="images/logos/angular_logo.png"/></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle">Styling</td>
+                            <td><img src="images/logos/sass_logo.jpeg" style="width: 110px; height: 115px"/>
+                                <img src="images/logos/css3_logo.jpeg" style="width: 110px; height: 115px"/></td>
+                            <td><img src="images/logos/bootstrap_logo.jpeg" style="width: 110px; height: 115px"/>
+                                <img src="images/logos/html5_logo.png" style="width: 110px; height: 115px"/></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle">Tasks/Dev Ops</td>
+                            <td><img src="images/logos/gulp_logo.jpeg"/></td>
+                            <td><img src="images/logos/node_logo.png" style="width: 220px; height: 95px"/></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle">Testing</td>
+                            <td><img src="images/logos/karma_logo.jpeg" /></td>
+                            <td><img src="images/logos/jasmine_logo.png" /></td>
+                        </tr>
+                    </table>
+                </section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
